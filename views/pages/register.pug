@@ -1,0 +1,21 @@
+html
+    head
+        title Look Inna Book
+        style
+            include ../../styles/styles.css
+    body(class="background")
+        include ../partials/layout
+
+        div
+            h2 Username
+            input(type='textbox', id='username', class='editInput')
+            br
+
+            h2 Password
+            input(type='textbox', id='password', class='editInput')
+            br
+
+            button(id='register') Register
+
+        script
+            include ../../scripts/register.js
