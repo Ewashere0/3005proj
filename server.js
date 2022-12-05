@@ -18,11 +18,13 @@ app.use("/logout", require('./routers/logout-router.js'));
 try{
 	app.listen(3000);
 	//database
-	let booksDB = new sqlite3.Database('.\SQL\books.db',sqlite3.OPEN_READWRITE, (err) => {
+	let DB = new sqlite3.Database('.\SQL\mainData.db',sqlite3.OPEN_READWRITE, (err) => {
 		if (err) {
 		  console.error(err.message);
 		}
-		console.log('Connected to the book database.');
+		else{
+			console.log('Connected to the database.');
+		}
 	  });
 
 	console.log("Server listening at http://localhost:3000");
