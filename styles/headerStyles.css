@@ -1,0 +1,41 @@
+.header{
+    width: 85%;
+    margin: auto;
+    padding-top: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 25px;
+    font-size: 20px;
+}
+
+.header ul li{
+    list-style: none;
+    display: inline-block;
+    margin: 0 20px;
+    position: relative;
+    
+}
+
+.header ul li a{
+    text-decoration: none;
+    color: #fcebe3;
+    text-transform: uppercase;
+}
+
+.header ul li::after{
+    content: '';
+    height: 3px;
+    width: 0;
+    background: #fac0a5;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transition: 0.5s;
+}
+
+.header ul li:hover::after{
+    width: 100%;
+    left: 0;
+}
