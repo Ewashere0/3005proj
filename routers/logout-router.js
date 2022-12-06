@@ -6,7 +6,6 @@ router
     .get('/', logout)
 
 function logout(req, res, next){
-	console.log('here')
 	req.session.loggedin = false;
 	req.session.user = null;
 	req.session.username = null;

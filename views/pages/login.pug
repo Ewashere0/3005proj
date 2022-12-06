@@ -1,20 +1,25 @@
 html
     head
+        script(type='text/javascript', src="https://kit.fontawesome.com/b004a8c5d5.js", crossorigin="anonymous")
         title Look Inna Book
         style
-            include ../../styles/styles.css
+            include ../../styles/mainStyles.css
+            include ../../styles/formStyles.css
     body(class="background")
         include ../partials/layout
-        div
-            h2 Username
-            input(type='textbox', id='username', class='editInput')
+        div(class="inputs")
+            div(class='loginField')
+                i(class='loginIcon fa fa-user')
+                input(type='textbox', placeholder='username', id='username', class='editInput')
             br
 
-            h2 Password
-            input(type='textbox', id='password', class='editInput')
+            div(class='loginField')
+                i(class='loginIcon fa fa-lock')
+                input(type='textbox', placeholder='password', id='password', class='editInput')
             br
 
-            button(id='login') Login
+            button(class='confirmButton', id='login') Login
+                i(class='buttonIcon fa fa-chevron-right')
 
         script
             include ../../scripts/login.js

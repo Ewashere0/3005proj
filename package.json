@@ -1,7 +1,6 @@
 {
   "name": "project",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -13,5 +12,15 @@
     "express": "^4.18.2",
     "express-session": "^1.17.3",
     "sqlite3": "^5.1.2"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ewashere0/3005proj.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Ewashere0/3005proj/issues"
+  },
+  "homepage": "https://github.com/Ewashere0/3005proj#readme",
+  "description": ""
 }
