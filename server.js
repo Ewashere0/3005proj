@@ -34,12 +34,14 @@ function getBackground(req, res, next){
 try{
 	app.listen(3000);
 	//database
-	let booksDB = new sqlite3.Database('.\SQL\books.db',sqlite3.OPEN_READWRITE, (err) => {
+	let DB = new sqlite3.Database('.\SQL\mainData.db',sqlite3.OPEN_READWRITE, (err) => {
 		if (err) {
 		  console.error(err.message);
 		}
 		else{
-			console.log('Connected to the book database.');
+
+		  console.log('Connected to the database.');
+
 		}
 	  });
 
