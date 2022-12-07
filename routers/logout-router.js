@@ -9,7 +9,7 @@ function logout(req, res, next){
 	req.session.loggedin = false;
 	req.session.user = null;
 	req.session.username = null;
-	req.session.admin = false;
+	req.session.owner = false;
 	res.redirect('../')
 }
 

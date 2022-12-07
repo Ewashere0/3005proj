@@ -18,15 +18,18 @@ html
                 input(type='textbox', placeholder='password', id='password', class='editInput')
             br
 
-            h4 Account type
-            <input type="radio" name="accountType" value="User" id="user">
-            <label for="s">User</label>
-            <input type="radio" name="accountType" value="Manager" id="manager">
-            <label for="s">Manager</label>
-            br
+            div(class='buttons')
+                div(class='radioButtons')
+                    h3 Account type
+                    <label class="radio">
+                        <input class='radio' type="radio" name="accountType" value="User" id="user" checked>
+                        <span>User</span>
+                    <label class="radio">
+                        <input type="radio" name="accountType" value="Manager" id="manager">
+                        <span>Manager</span>
 
-            button(class='confirmButton', id='register') Register
-                i(class='buttonIcon fa fa-chevron-right')
+                button(class='confirmButton', id='register') Register
+                    i(class='buttonIcon fa fa-chevron-right')
 
         script
             include ../../scripts/register.js

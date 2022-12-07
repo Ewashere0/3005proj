@@ -1,4 +1,7 @@
 if loggedin 
-    include ../partials/loggedinHeader
+    if owner
+        include ../partials/ownerHeader
+    else
+        include ../partials/loggedinHeader
 else 
     include ../partials/loggedoutHeader
