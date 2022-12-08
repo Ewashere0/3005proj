@@ -10,7 +10,8 @@ router
 function getHome(req, res, next){
     let data = pug.renderFile("views/pages/home.pug", {
 		loggedin: req.session.loggedin, 
-		id: req.session.user
+		id: req.session.user,
+		owner: req.session.owner
 	});
 	res.setHeader('Content-Type', 'text/html');
 	res.status(200).send(data);
