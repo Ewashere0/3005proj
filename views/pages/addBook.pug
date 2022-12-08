@@ -1,41 +1,31 @@
 html
-	head
-		title Add book to database 
-		style
-			//- include ../../styles/styles.css
-	body(class="background")
-		include ../partials/layout
-        div(class="form")
-            h2 ISBN number
-            input(type='textbox', id='ISBN', class='editInput')
+    head
+        script(type='text/javascript', src="https://kit.fontawesome.com/b004a8c5d5.js", crossorigin="anonymous")
+        title Look Inna Book
+        style
+            include ../../styles/mainStyles.css
+            include ../../styles/formStyles.css
+    body(class="background")
+        include ../partials/layout
+        div(class="inputs")
+            input(type='textbox', placeholder='ISBN', id='ISBN', class='editInput')
             br
-
-            h2 Title
-            input(type='textbox', id='title', class='editInput')
+            input(type='textbox', placeholder='Book Title', id='title', class='editInput')
             br
-
-            h2 Author
-            input(type='textbox', id='author', class='editInput')
+            input(type='textbox', placeholder='Author', id='author', class='editInput')
             br
-
-            h2 Year it was published
-            input(type='textbox', id='publishingYear', class='editInput')
+            input(type='textbox', placeholder='Publisher', id='publisher', class='editInput')
             br
-
-            h2 Publisher
-            input(type='textbox', id='publisher', class='editInput')
+            input(type='textbox', placeholder='Year published', id='year', class='editInput')
             br
-
-            h2 Genre
-            input(type='textbox', id='genre', class='editInput')
+            input(type='textbox', placeholder='Genre', id='genre', class='editInput')
             br
-
-            h2 Number of pages 
-            input(type='textbox', id='pageNum', class='editInput')
+            input(type='textbox', placeholder='Number of pages', id='pageNum', class='editInput')
             br
-
-            h2 Book price
-            input(type='textbox', id='price', class='editInput')
+            input(type='textbox', placeholder='Price in $', id='price', class='editInput')
+            br                
             br
+            button(class='confirmButton', id='addBook') Add Book to collection
 
-            button(id='register') Register
+        script
+            include ../../scripts/addBook.js
