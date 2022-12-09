@@ -2,7 +2,6 @@ const express = require('express');
 const session = require('express-session');
 const sqlite3 = require('sqlite3').verbose();
 const fs = require('fs');
-const { Pool } = require('pg')
 
 const app = express();
 
@@ -31,15 +30,6 @@ function getBackground(req, res, next){
 		res.status(200).send(data);
 	});
 }
-
- 
-const DB = new Pool({
-  host: 'localhost',
-  port: 5432,
-  user: 'postgres',
-  database: 'mainDB',
-  password: 'admin',
-})
 
 //Start server
 try{

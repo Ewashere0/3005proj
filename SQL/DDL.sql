@@ -1,4 +1,4 @@
-create table user
+create table users
 	(
      username   varchar(20) not null,
      password   varchar(20) not null,
@@ -7,14 +7,14 @@ create table user
 	);
 
 create table books(
-     ISBN int(10) not null,
+     ISBN bigint not null,
      title varchar (50) not null,
      author varchar (20) not null,
-     yearPublished int(4) not null,
+     yearPublished int not null,
      publisher varchar (20) not null, 
      genre varchar (20) not null,
-     pageNumber int (4) not null,
-     price float (5) not null,
+     pageNumber int not null,
+     price float not null,
      primary key(ISBN)
 );
 

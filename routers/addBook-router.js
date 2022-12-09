@@ -3,6 +3,15 @@ const pug = require('pug')
 const express = require('express');
 let router = express.Router();
 
+const { Pool } = require('pg')
+const pool = new Pool({
+	host: 'localhost',
+	port: 5432,
+	user: 'postgres',
+	database: 'mainDB',
+	password: 'admin',
+  })
+  
 router
     .get('/', getForm)
     .post('/', express.json(), addBook)
@@ -26,11 +35,24 @@ router
             'ISBN': req.body.ISBN,
             'Title': req.body.title,
             'Author': req.body.author,
-            'Year published': req.body.year,
+            'Year': req.body.year,
+            'Publisher':req.body.publisher,
             'Genre': req.body.genre,
-            'Number of pages': req.body.pageNum,
+            'Pages': req.body.pageNum,
             'Price': req.body.price,
         }
+        const text = 'INSERT INTO books VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *'
+        const values = [data.ISBN,data.Title,data.Author,data.Year,data.Publisher,data.Genre,data.Pages,data.Price]
+        pool.connect((err, client, done) => {
+            if (err) throw err
+            client.query(text, values, (err, res) => {
+              if (err) {
+                console.log(err.stack)
+              } else {
+                console.log(res.rows[0])
+              }
+            })
+          })
         console.log(data)
     
         res.status(201).send(data)
