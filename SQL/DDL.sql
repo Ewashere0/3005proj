@@ -1,9 +1,10 @@
 create table users
 	(
+     ID varchar(20) not null,
      username   varchar(20) not null,
      password   varchar(20) not null,
-     isManager char(1),
-     primary key(username, password)
+     accountType varchar (20),
+     primary key(username)
 	);
 
 create table books(

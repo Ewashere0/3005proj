@@ -1,0 +1,13 @@
+html 
+    head 
+        title #{user.username}'s Page
+    style
+        include ../../styles/mainStyles.css
+        body(class="background")
+            include ../partials/layout
+            div(class="description")
+                b='Welcome '+ user.username
+                p
+                    | Order history
+                    | Billing info 
+                    | Shipping info

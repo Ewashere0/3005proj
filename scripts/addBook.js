@@ -28,7 +28,7 @@ function addBook(){
             return;
         }
     };
-    xhttp.open("POST", "/addBook", true);
+    xhttp.open("PUT", "/addBook", true);
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send(JSON.stringify(data));
 }
