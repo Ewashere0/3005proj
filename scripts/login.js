@@ -11,11 +11,12 @@ function loginUser(){
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if(this.readyState==4 && this.status==201){
-            window.location.replace('/');
+            window.location.replace('/users/'+username);
+            alert('Successful login')
             return;
         }
     };
-    xhttp.open("POST", "/login/" + user.id, true);
+    xhttp.open("POST", "/login", true);
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send(JSON.stringify(user));
 }

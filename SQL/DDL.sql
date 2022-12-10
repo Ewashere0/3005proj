@@ -1,6 +1,5 @@
 create table users
 	(
-     ID varchar(20) not null,
      username   varchar(20) not null,
      password   varchar(20) not null,
      accountType varchar (20),

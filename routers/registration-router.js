@@ -3,8 +3,6 @@ const pug = require('pug')
 const express = require('express');
 let router = express.Router();
 
-let nextId = 0
-
 const { Pool } = require('pg')
 const pool = new Pool({
 	host: 'localhost',
@@ -34,24 +32,51 @@ function registerUser(req, res, next){
 		'username': req.body.username,
 		'password': req.body.password,
 		'type': req.body.type,
-		'id': nextId++
 	}
-	const text = 'INSERT INTO users VALUES($1, $2, $3, $4)'
-	const values = [data.id,data.username,data.password,data.type]
+	const searchText='SELECT FROM users u WHERE u.username = $1'
+	const name=[req.body.username]
 	pool.connect((err, client, done) => {
 		if (err) throw err
-		client.query(text, values, (err, res) => {
+		client.query(searchText, name, (err, result) => {
 		  if (err) {
 			console.log(err.stack)
 		  } else {
-			console.log('success!')
+			if(result.rowCount===1){
+				res.status(404).send('This username already exists')
+				return;
+		  	}
+			insertEntry(req,res,data)
 		  }
 		})
 	  })
-	
-	console.log(data)
+}
 
-	res.status(201).send(data)
+//there's probably a way to combine these querries into one, will optimize later
+function insertEntry(req,res,data){
+	const text = 'INSERT INTO users VALUES($1, $2, $3)'
+	const values = [data.username,data.password,data.type]
+	pool.connect((err, client, done) => {
+		if (err) throw err
+		client.query(text, values, (err, result) => {
+		  if (err) {
+			console.log(err.stack)
+		  } else {
+			req.session.loggedin = true;
+			req.session.username = req.body.username;
+			if (req.body.type === "Owner"){
+				req.session.owner = true;
+			}
+			else{
+				req.session.owner = false;
+			}
+			console.log('success!')
+			console.log(data)
+
+			res.status(201).send(data)
+
+		  }
+		})
+	  })
 }
 
 //Export the router so it can be mounted in the main app
