@@ -71,7 +71,7 @@ function addBook(req, res, next){
 }
 
 function insertPublisher(data){
-  const text = 'insert into publishers(name, email, address, bankAccount) values($1, $2, $3, $4)'
+  const text = 'INSERT INTO publishers(name, email, address, bankAccount) values($1, $2, $3, $4)'
   const values = [data.Publisher, null, null, null]
 
   pool.connect((err, client, done) => {
