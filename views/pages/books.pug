@@ -1,13 +1,26 @@
 html
-	head
-		title Look Inna Book
-		style
-			include ../../styles/mainStyles.css
-	body(class="background")
-		include ../partials/layout
-		div(class="description")
-			h1 Look Inna Book Bookstore
-			p
-				| Wagwan
-				| this a bookstore
-				| come look at books
+    head
+        title Look Inna Book
+        style
+            include ../../styles/mainStyles.css
+    body(class="background")
+        include ../partials/layout
+        div(class="description")
+            h2 Books available
+            select#book-select
+                ul
+                    each val,index in Titles
+                        option(value=ISBNs[index])= 'Title: '+val + ', ISBN number: '+ISBNs[index]
+            
+            div(class="inputs")
+                input(type='textbox', placeholder='Quantity', id='quantity', class='editInput')
+            br
+            
+            button(class='confirmButton', id='addCart') Add to Cart
+                 i(class='buttonIcon fa fa-chevron-right')
+
+            div#cart(class="left")
+                b Current cart
+        
+        script
+            include ../../scripts/order.js

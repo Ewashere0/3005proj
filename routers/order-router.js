@@ -1,3 +1,4 @@
+const pug = require('pug')
 const express = require('express');
 let router = express.Router();
 
@@ -14,22 +15,37 @@ function getBooks(req, res, next){
 		database: 'mainDB',
 		password: 'admin',
 	})
-	const text='SELECT * FROM books WHERE inventory > 0;'
+	const query = {
+		text:'SELECT ISBN,title FROM books WHERE inventory > 0;',
+		rowMode: 'array',
+	  }
 	pool.connect((err, client, done) => {
 		if (err) throw err
-		client.query(text, (err, result) => {
+		client.query(query, (err, result) => {
 		  if (err) {
 			console.log(err.stack)
 		  } else {
-            console.log(result)
-			res.format({
-				"text/html": () => {res.render("../views/pages/books.pug")}
-			});	
+			createList(res,result,req)
 		  }
 		})
 	  })
-
-
+}
+function createList(res,results,req){
+	ISBNs=[]
+	Titles=[]
+	for (let i = 0; i<results.rowCount;i++){
+		ISBNs.push(results.rows[i][0])
+		Titles.push(results.rows[i][1])
+	}
+	let data = pug.renderFile("views/pages/books.pug", {
+		loggedin: req.session.loggedin, 
+		username: req.session.username,
+		owner: req.session.owner,
+		ISBNs: ISBNs,
+		Titles: Titles
+	});
+	res.setHeader('Content-Type', 'text/html');
+	res.status(200).send(data);
 }
 
 //Export the router so it can be mounted in the main app

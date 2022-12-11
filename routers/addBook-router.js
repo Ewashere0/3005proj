@@ -15,7 +15,6 @@ const pool = new Pool({
 router
     .get('/', getForm)
     .put('/', express.json(), addBook)
-    .post('/', express.json(), addBook)
 
     function getForm(req, res, next){
         if(!req.session.loggedin){
@@ -26,26 +25,29 @@ router
             res.status(403).send('Users cannot access this page');
             return;
         }
-        res.format({
-            "text/html": () => {res.render("../views/pages/addBook.pug")}
+        let data = pug.renderFile("views/pages/addBook.pug", {
+          loggedin: req.session.loggedin, 
+          username: req.session.username,
+          owner: req.session.owner
         });
+        res.setHeader('Content-Type', 'text/html');
+        res.status(200).send(data);
+        return;
     }
     
     function addBook(req, res, next){
         let data = {
             'ISBN': req.body.ISBN,
             'Title': req.body.title,
-            'Author': req.body.author,
             'Year': req.body.year,
             'Publisher':req.body.publisher,
-            'Genre': req.body.genre,
             'Pages': req.body.pageNum,
             'Price': req.body.price,
             'Quantity': req.body.quantity,
+            'salePercentage': req.body.salePercentage
         }
-        const text = 'INSERT INTO books VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)'
-        const values = [data.ISBN,data.Title,data.Author,data.Year,data.Publisher,data.Genre,data.Pages,data.Price,data.Quantity]
-
+        const text = 'INSERT INTO books VALUES($1, $2, $3, $4, $5, $6, $7, $8)'
+        const values = [data.ISBN,data.Title,data.Year,data.Publisher,data.Pages,data.Price,data.Quantity,date.salePercentage]
         pool.connect((err, client, done) => {
             if (err) throw err
             client.query(text, values, (err, res) => {
