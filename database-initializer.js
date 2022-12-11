@@ -65,6 +65,22 @@ function loadDDL(){
                 console.log(err.stack)
             } else {
                 console.log('DDL loaded successfully')
+                loadDML();
+            }
+            client.release();
+        })
+    })
+}
+
+function loadDML(){
+    var sql = fs.readFileSync('./SQL/DML.sql').toString();
+    pool.connect((err, client, done) => {
+        if (err) throw err
+        client.query(sql, (err, res) => {
+            if (err) {
+                console.log(err.stack)
+            } else {
+                console.log('DML loaded successfully')
                 pool.end();
             }
             client.release();
