@@ -5,6 +5,7 @@ function addBook(){
     let title = document.getElementById('title').value
     let genre = document.getElementById('genre').value
     let author = document.getElementById('author').value
+    let authorEmail = document.getElementById('authorEmail').value
     let publisher = document.getElementById('publisher').value
     let pageNum = document.getElementById('pageNum').value
     let price = document.getElementById('price').value
@@ -16,6 +17,7 @@ function addBook(){
         'title': title, 
         'genre': genre,
         'author':author,
+        'authorEmail':authorEmail,
         'publisher':publisher,
         'pageNum':pageNum,
         'price':price,

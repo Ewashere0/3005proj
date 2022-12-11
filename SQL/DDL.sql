@@ -1,9 +1,9 @@
 create table publishers(
-     publisherID bigint not null,
-     name varchar(20) not null,
-     email varchar(35) not null,
-     address varchar(35) not null,
-     bankAccount bigint not null,
+     publisherID int generated always as identity,
+     name varchar(20),
+     email varchar(35),
+     address varchar(35),
+     bankAccount bigint,
 
      primary key(publisherID)
 );
@@ -25,7 +25,7 @@ create table books(
      inventory int not null,
 
      publisherSalePercentage numeric(5,2),
-     publisherID bigint,
+     publisherID bigint not null,
 
      primary key(ISBN),
      foreign key(publisherID) references publishers
