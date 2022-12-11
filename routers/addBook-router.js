@@ -15,6 +15,7 @@ const pool = new Pool({
 router
     .get('/', getForm)
     .put('/', express.json(), addBook)
+    .post('/', express.json(), addBook)
 
     function getForm(req, res, next){
         if(!req.session.loggedin){
@@ -44,6 +45,7 @@ router
         }
         const text = 'INSERT INTO books VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)'
         const values = [data.ISBN,data.Title,data.Author,data.Year,data.Publisher,data.Genre,data.Pages,data.Price,data.Quantity]
+
         pool.connect((err, client, done) => {
             if (err) throw err
             client.query(text, values, (err, res) => {
