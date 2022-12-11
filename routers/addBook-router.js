@@ -26,7 +26,7 @@ router
             return;
         }
         res.format({
-            "text/html": () => {res.render("../views/pages/addBook.pug")}
+            "text/html": () => {res.render("../views/pages/addBook.pug"),{loggedin: req.session.loggedin}}
         });
     }
     
