@@ -28,8 +28,8 @@ function loginUser(req, res, next){
 		database: 'mainDB',
 		password: 'admin',
 	})
-
-	const text='SELECT FROM users WHERE username = $1 AND password = $2'
+	
+	const text='SELECT * FROM users WHERE username = $1 AND password = $2'
 	const values=[req.body.username,req.body.password]
 
 	pool.connect((err, client, done) => {
@@ -41,7 +41,7 @@ function loginUser(req, res, next){
 				if(result.rowCount===1){
 					req.session.loggedin = true;
 					req.session.username = req.body.username;
-					if (req.body.type === "Owner"){
+					if (result.rows[0].accounttype === "Owner"){
 						req.session.owner = true;
 					}
 					else{

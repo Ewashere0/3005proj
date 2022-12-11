@@ -15,6 +15,7 @@ create table books(
      genre varchar (20) not null,
      pageNumber int not null,
      price float not null,
+     inventory int not null,
      primary key(ISBN)
 );
 

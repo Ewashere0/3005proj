@@ -14,7 +14,7 @@ const pool = new Pool({
   
 router
     .get('/', getRegistration)
-	.post('/', express.json(), registerUser)
+	.put('/', express.json(), registerUser)
 
 function getRegistration(req, res, next){
 	if(req.session.loggedin){

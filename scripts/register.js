@@ -22,7 +22,7 @@ function register(){
             return;
         }
     };
-    xhttp.open("POST", "/registration", true);
+    xhttp.open("PUT", "/registration", true);
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send(JSON.stringify(data));
 }

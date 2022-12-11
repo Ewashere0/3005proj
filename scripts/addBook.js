@@ -9,6 +9,7 @@ function addBook(){
     let pageNum = document.getElementById('pageNum').value
     let price = document.getElementById('price').value
     let year = document.getElementById('year').value
+    let quantity=document.getElementById('quantity').value
 
     let data = {
         'ISBN': ISBN, 
@@ -18,7 +19,8 @@ function addBook(){
         'publisher':publisher,
         'pageNum':pageNum,
         'price':price,
-        'year':year
+        'year':year,
+        'quantity':quantity
     }
 
     let xhttp = new XMLHttpRequest();

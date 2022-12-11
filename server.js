@@ -11,6 +11,7 @@ app.set("view engine", "pug");
 //routers
 app.use("/", require('./routers/home-router'));
 app.use("/users", require('./routers/users-router'));
+app.use("/order", require('./routers/order-router.js'));
 app.use("/registration", require('./routers/registration-router.js'));
 app.use("/login", require('./routers/login-router.js'));
 app.use("/logout", require('./routers/logout-router.js'));
