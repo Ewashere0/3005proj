@@ -1,9 +1,9 @@
 create table publishers(
-     publisherID bigint not null,
-     name varchar(20) not null,
-     email varchar(35) not null,
-     address varchar(35) not null,
-     bankAccount bigint not null,
+     publisherID int generated always as identity,
+     name varchar(20),
+     email varchar(35),
+     address varchar(35),
+     bankAccount bigint,
 
      primary key(publisherID)
 );
@@ -18,16 +18,15 @@ create table authors(
 create table books(
      ISBN bigint not null,
      title varchar (50) not null,
-     price float not null,
-     pageNumber int not null,
-     publisher varchar (20) not null,
-     inventory int not null,
      yearPublished smallint not null,
-     publisherSalePercentage numeric(5,2) not null,
+     publisher varchar (20) not null,
+     pageNumber int not null,
+     publisherSalePercentage numeric(5,2),
      publisherID bigint not null,
 
      primary key(ISBN),
      foreign key(publisherID) references publishers
+     -- could make publisher name a foreign key as well?
 );
 
 create table phoneNumbers(
