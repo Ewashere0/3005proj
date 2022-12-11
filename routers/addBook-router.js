@@ -25,9 +25,14 @@ router
             res.status(403).send('Users cannot access this page');
             return;
         }
-        res.format({
-            "text/html": () => {res.render("../views/pages/addBook.pug"),{loggedin: req.session.loggedin}}
+        let data = pug.renderFile("views/pages/addBook.pug", {
+          loggedin: req.session.loggedin, 
+          username: req.session.username,
+          owner: req.session.owner
         });
+        res.setHeader('Content-Type', 'text/html');
+        res.status(200).send(data);
+        return;
     }
     
     function addBook(req, res, next){

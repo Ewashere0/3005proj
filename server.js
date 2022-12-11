@@ -17,7 +17,6 @@ app.use("/login", require('./routers/login-router.js'));
 app.use("/logout", require('./routers/logout-router.js'));
 app.use("/addbook", require('./routers/addBook-router.js'));
 
-
 //lazy routers, make separate files if this gets too big idk
 app.route('/background.jpg')
 	.get(express.json(), getBackground);

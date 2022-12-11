@@ -1,3 +1,4 @@
+const pug = require('pug')
 const express = require('express');
 let router = express.Router();
 
@@ -36,9 +37,15 @@ function createList(res,results,req){
 		ISBNs.push(results.rows[i][0])
 		Titles.push(results.rows[i][1])
 	}
-	res.format({
-		"text/html": () => {res.render("../views/pages/books.pug"),{loggedin: req.session.loggedin, ISBNs,ISBNs,Titles,Titles}}
-	});	
+	let data = pug.renderFile("views/pages/books.pug", {
+		loggedin: req.session.loggedin, 
+		username: req.session.username,
+		owner: req.session.owner,
+		ISBNs: ISBNs,
+		Titles: Titles
+	});
+	res.setHeader('Content-Type', 'text/html');
+	res.status(200).send(data);
 }
 
 //Export the router so it can be mounted in the main app

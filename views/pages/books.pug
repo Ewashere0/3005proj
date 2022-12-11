@@ -10,4 +10,11 @@ html
             select#book-select
                 ul
                     each val,index in Titles
-                        li= 'Title: '+val + ', ISBN number: '+ISBNs[index]
+                        option(value=ISBNs[index])= 'Title: '+val + ', ISBN number: '+ISBNs[index]
+            
+            div(class="inputs")
+                input(type='textbox', placeholder='Quantity', id='quantity', class='editInput')
+            br
+            
+            button(class='confirmButton', id='addCart') Add to Cart
+                 i(class='buttonIcon fa fa-chevron-right')
