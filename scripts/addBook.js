@@ -14,13 +14,12 @@ function addBook(){
     let data = {
         'ISBN': ISBN, 
         'title': title, 
-        'genre': genre,
-        'author':author,
         'publisher':publisher,
         'pageNum':pageNum,
         'price':price,
         'year':year,
-        'quantity':quantity
+        'quantity':quantity,
+        'salePercentage':salePercentage
     }
 
     let xhttp = new XMLHttpRequest();
