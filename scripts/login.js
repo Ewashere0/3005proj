@@ -15,6 +15,10 @@ function loginUser(){
             alert('Successful login')
             return;
         }
+        else if (this.readyState==4 && this.status==404){
+            alert('Invalid username/password');
+            return;
+        }
     };
     xhttp.open("POST", "/login", true);
     xhttp.setRequestHeader("Content-Type", "application/json");

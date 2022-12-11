@@ -42,7 +42,7 @@ function registerUser(req, res, next){
 			console.log(err.stack)
 		  } else {
 			if(result.rowCount===1){
-				res.status(404).send('This username already exists')
+				res.status(418).send('This username already exists')
 				return;
 		  	}
 			insertEntry(req,res,data)

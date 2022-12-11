@@ -50,7 +50,7 @@ function loginUser(req, res, next){
 					res.status(201).send(values)
 				}
 				else{
-					res.status(404).send(values);
+					res.status(404).send('invalid username/password');
 					return;
 				}	
 			}
