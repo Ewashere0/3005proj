@@ -1,0 +1,22 @@
+html 
+    head 
+        title #{username}'s Page
+    style
+        include ../../styles/mainStyles.css
+    body(class="background")
+        include ../partials/layout
+        div(class="description")
+            h1='Welcome '+ username+'!'
+            br
+            if(owner)
+                p    Owner account type
+            else
+                p    User account type
+            br
+            p
+                | Order history
+                | Billing info 
+                | Shipping info
+    
+    script
+        include ../../scripts/users.js

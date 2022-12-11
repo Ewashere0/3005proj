@@ -13,7 +13,8 @@ function register(){
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if(this.readyState==4 && this.status==201){
-            login(JSON.parse(this.responseText));
+            window.location.replace('/');
+            alert('Account created!')
             return;
         }
         if(this.readyState==4 && this.status==418){
@@ -21,20 +22,8 @@ function register(){
             return;
         }
     };
-    xhttp.open("POST", "/registration", true);
+    xhttp.open("PUT", "/registration", true);
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send(JSON.stringify(data));
 }
 
-function login(user){
-    let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if(this.readyState==4 && this.status==201){
-            window.location.replace('/');
-            return;
-        }
-    };
-    xhttp.open("PUT", "/login/" + user.id, true);
-    xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.send(JSON.stringify(user));
-}

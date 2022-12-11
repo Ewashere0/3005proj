@@ -14,15 +14,17 @@ create table authors(
 
      primary key(email)
 );
-
+     
 create table books(
      ISBN bigint not null,
      title varchar (50) not null,
+     author varchar (20) not null, --not like this in the ER diagram
+     genre varchar (20) not null, --not like this in the ER diagram
      price float not null,
      pageNumber int not null,
      publisher varchar (20) not null,
-     inStock smallint not null,
-     publishedYear smallint not null,
+     inventory int not null,
+     yearPublished smallint not null,
      publisherSalePercentage numeric(5,2) not null,
      publisherID bigint not null,
 
@@ -47,11 +49,12 @@ create table writes(
      foreign key(email) references authors
 );
 
-create table users(
+create table users
+	(
      username   varchar(20) not null,
      password   varchar(20) not null,
-     isManager char(1),
-
+     accountType varchar (20),
+     
      primary key(username)
 );
 

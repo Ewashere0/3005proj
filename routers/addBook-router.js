@@ -14,6 +14,7 @@ const pool = new Pool({
   
 router
     .get('/', getForm)
+    .put('/', express.json(), addBook)
     .post('/', express.json(), addBook)
 
     function getForm(req, res, next){
@@ -40,16 +41,18 @@ router
             'Genre': req.body.genre,
             'Pages': req.body.pageNum,
             'Price': req.body.price,
+            'Quantity': req.body.quantity,
         }
-        const text = 'INSERT INTO books VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *'
-        const values = [data.ISBN,data.Title,data.Author,data.Year,data.Publisher,data.Genre,data.Pages,data.Price]
+        const text = 'INSERT INTO books VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)'
+        const values = [data.ISBN,data.Title,data.Author,data.Year,data.Publisher,data.Genre,data.Pages,data.Price,data.Quantity]
+
         pool.connect((err, client, done) => {
             if (err) throw err
             client.query(text, values, (err, res) => {
               if (err) {
                 console.log(err.stack)
               } else {
-                console.log('sucess!')
+                console.log('success!')
               }
             })
           })
@@ -59,4 +62,3 @@ router
     }
 //Export the router so it can be mounted in the main app
 module.exports = router;
-
