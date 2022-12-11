@@ -22,7 +22,8 @@ function addBook(){
         'pageNum':pageNum,
         'price':price,
         'year':year,
-        'quantity':quantity
+        'quantity':quantity,
+        'salePercentage':salePercentage
     }
 
     let xhttp = new XMLHttpRequest();

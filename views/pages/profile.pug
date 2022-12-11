@@ -13,10 +13,14 @@ html
             else
                 p    User account type
             br
-            p
-                | Order history
-                | Billing info 
-                | Shipping info
-    
+            div(class="header")
+                ul
+                    li
+                        a(href="/profile/history") Order history
+                    li
+                        a(href="/profile/shipping") Shipping information
+                    li
+                        a(href="/profile/billing") Billing information
+        
     script
         include ../../scripts/users.js

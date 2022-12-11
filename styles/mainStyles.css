@@ -34,3 +34,14 @@
     line-height: 25px;
     font-size: 18px;
 }
+
+.left{
+    position: relative;
+    left: -500px;
+    bottom: 150px;
+}
+
+.right {
+    position: relative;
+    right: 30px;
+}

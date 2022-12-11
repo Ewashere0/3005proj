@@ -15,7 +15,6 @@ const pool = new Pool({
 router
     .get('/', getForm)
     .put('/', express.json(), addBook)
-    .post('/', express.json(), addBook)
 
 function getForm(req, res, next){
     if(!req.session.loggedin){
