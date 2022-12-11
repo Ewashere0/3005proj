@@ -16,7 +16,7 @@ function getBooks(req, res, next){
 		password: 'admin',
 	})
 	const query = {
-		text:'SELECT ISBN,title FROM books WHERE inventory > 0;',
+		text:'SELECT ISBN,title,price,inventory FROM books WHERE inventory > 0;',
 		rowMode: 'array',
 	  }
 	pool.connect((err, client, done) => {
@@ -33,16 +33,22 @@ function getBooks(req, res, next){
 function createList(res,results,req){
 	ISBNs=[]
 	Titles=[]
+	Prices=[]
+	Inventories=[]
 	for (let i = 0; i<results.rowCount;i++){
 		ISBNs.push(results.rows[i][0])
 		Titles.push(results.rows[i][1])
+		Prices.push(results.rows[i][2])
+		Inventories.push(results.rows[i][3])
 	}
 	let data = pug.renderFile("views/pages/books.pug", {
 		loggedin: req.session.loggedin, 
 		username: req.session.username,
 		owner: req.session.owner,
 		ISBNs: ISBNs,
-		Titles: Titles
+		Titles: Titles,
+		Prices:Prices,
+		Inventories:Inventories
 	});
 	res.setHeader('Content-Type', 'text/html');
 	res.status(200).send(data);

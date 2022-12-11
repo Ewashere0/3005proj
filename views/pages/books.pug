@@ -10,7 +10,7 @@ html
             select#book-select
                 ul
                     each val,index in Titles
-                        option(value=ISBNs[index])= 'Title: '+val + ', ISBN number: '+ISBNs[index]
+                        option(value=ISBNs[index],id=ISBNs[index])= 'Title:'+val + ',ISBN:'+ISBNs[index]+ ',Price:$'+Prices[index]+',Available for purchase:'+Inventories[index]
             
             div(class="inputs")
                 input(type='textbox', placeholder='Quantity', id='quantity', class='editInput')
