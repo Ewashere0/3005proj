@@ -65,6 +65,7 @@ function loadDDL(){
                 console.log(err.stack)
             } else {
                 console.log('DDL loaded successfully')
+                pool.end();
             }
             client.release();
         })

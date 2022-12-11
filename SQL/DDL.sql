@@ -19,14 +19,15 @@ create table books(
      ISBN bigint not null,
      title varchar (50) not null,
      author varchar (20) not null, --not like this in the ER diagram
-     genre varchar (20) not null, --not like this in the ER diagram
-     price float not null,
-     pageNumber int not null,
-     publisher varchar (20) not null,
-     inventory int not null,
      yearPublished smallint not null,
-     publisherSalePercentage numeric(5,2) not null,
-     publisherID bigint not null,
+     publisher varchar (20) not null,
+     genre varchar (20) not null, --not like this in the ER diagram
+     pageNumber int not null,
+     price float not null,
+     inventory int not null,
+
+     publisherSalePercentage numeric(5,2),
+     publisherID bigint,
 
      primary key(ISBN),
      foreign key(publisherID) references publishers
