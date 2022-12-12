@@ -68,11 +68,11 @@ create table billingInfo(
 );
 
 create table orders(
-     orderNumber int not null,
+     orderNumber int generated always as identity,
      shippingAddress varchar(35) not null,
      orderDate date not null,
      trackingInfo varchar(35) not null,
-     totalAmout numeric(8, 2) not null,
+     totalAmount numeric(8, 2) not null,
      cardNumber bigint not null,
 
      primary key(orderNumber),
@@ -84,7 +84,7 @@ create table contains(
      ISBN bigint not null,
      quantity smallint not null,
 
-     primary key(orderNumber),
+     primary key(orderNumber, ISBN),
      foreign key(orderNumber) references orders,
      foreign key(ISBN) references books
 );
