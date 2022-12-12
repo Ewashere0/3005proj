@@ -13,8 +13,10 @@ const pool = new Pool({
   })
   
 router
-    .get('/', getForm)
-    .put('/', express.json(), addBook)
+  .get('/add', getForm)
+  .get('/remove',displayPage)
+  .put('/add', express.json(), addBook)
+  .delete('/remove',express.json(), removeBook)
 
 function getForm(req, res, next){
     if(!req.session.loggedin){
@@ -33,6 +35,26 @@ function getForm(req, res, next){
         })}
     });
 }
+
+function displayPage(req, res, next){
+  if(!req.session.loggedin){
+      res.status(404).send('You must be logged in to access this page');
+      return;
+  }
+  if(!req.session.owner){
+      res.status(403).send('Users cannot access this page');
+      return;
+  }
+
+  res.format({
+      "text/html": () => {res.render("../views/pages/removeBook.pug", {
+        loggedin: req.session.loggedin, 
+        username: req.session.username,
+        owner: req.session.owner
+      })}
+  });
+}
+
 
 function addBook(req, res, next){
     let data = {
@@ -173,6 +195,30 @@ function insertWrites(data){
 
       })
     })
+}
+function deleteEntry(table,condition,value){
+  const text='DELETE FROM '+table+' WHERE '+condition+'=$1'
+  const values=[value]
+  pool.connect((err, client, done) => {
+    if (err) throw err
+    client.query(text, values, (err, res) => {
+      if (err) {
+        console.log(err.stack)
+        return false;
+      } 
+      client.release();
+      return true;
+    })
+  })
+}
+function removeBook(req,res,next){
+  let data = {
+    'ISBN': req.body.ISBN
+  }
+  console.log(deleteEntry('writes','ISBN',data.ISBN))
+  console.log(deleteEntry('genres','ISBN',data.ISBN))
+  console.log(deleteEntry('contains','ISBN',data.ISBN))
+  console.log(deleteEntry('books','ISBN',data.ISBN))
 }
 
 //Export the router so it can be mounted in the main app
