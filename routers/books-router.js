@@ -16,7 +16,7 @@ router
   .get('/add', getForm)
   .get('/remove',displayPage)
   .put('/add', express.json(), addBook)
-  .delete('/remove',express.json(), removeBook)
+  .delete('/remove',express.json(), checkBook)
 
 function getForm(req, res, next){
     if(!req.session.loggedin){
@@ -206,19 +206,41 @@ function deleteEntry(table,condition,value){
         console.log(err.stack)
         return false;
       } 
-      client.release();
-      return true;
+      client.release()
     })
   })
 }
-function removeBook(req,res,next){
+
+function checkBook(req,res,next){
   let data = {
     'ISBN': req.body.ISBN
   }
-  console.log(deleteEntry('writes','ISBN',data.ISBN))
-  console.log(deleteEntry('genres','ISBN',data.ISBN))
-  console.log(deleteEntry('contains','ISBN',data.ISBN))
-  console.log(deleteEntry('books','ISBN',data.ISBN))
+  const searchText='SELECT FROM books b WHERE b.ISBN = $1'
+	const num=[data.ISBN]
+	pool.connect((err, client, done) => {
+		if (err) throw err
+		client.query(searchText, num, (err, result) => {
+		  if (err) {
+			console.log(err.stack)
+		  } else {
+			if(result.rowCount===0){
+				res.status(404).send('This book does not exist')
+				return;
+		    }
+        removeBook(req,res,next,data)
+		  }
+		  client.release();
+		})
+	  })
+}
+function removeBook(req,res,next,data){
+
+  deleteEntry('writes','ISBN',data.ISBN);
+  deleteEntry('genres','ISBN',data.ISBN);
+  deleteEntry('contains','ISBN',data.ISBN);     //removing the book and all dependancies 
+  deleteEntry('books','ISBN',data.ISBN);
+
+  res.status(201).send(data)
 }
 
 //Export the router so it can be mounted in the main app
