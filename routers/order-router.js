@@ -12,16 +12,20 @@ const pool = new Pool({
 })
 
 router
-    .get('/', getUserInfo)
+    .get('/',express.json(), getUserInfo)
 	.post('/', express.json(), placeOrder)
 
-function getBooks(req, res, next){
-	if(!req.session.loggedin){
-        res.status(404).send('You must be logged in to access this page');
-        return;
-    }
+
 
 function getUserInfo(req, res, next){
+	const { Pool } = require('pg')
+	const pool = new Pool({
+		host: 'localhost',
+		port: 5432,
+		user: 'postgres',
+		database: 'mainDB',
+		password: 'admin',
+	})
 	const query = {
 		text:'SELECT address,cardNumber,name FROM billingInfo WHERE username = $1;',
 		values: [req.session.username],
@@ -33,15 +37,16 @@ function getUserInfo(req, res, next){
 		  if (err) {
 			console.log(err.stack)
 		  } else {
-			getBooks(res,req,result)
+			getBooks(req,res,next,result)
 		  }
 		})
 		client.release();
-	  })
+	})
+	  
 }
-
-	function getBooks(req, res, prevResult){
-    const { Pool } = require('pg')
+	  
+function getBooks(req, res, next,prevResult){
+	const { Pool } = require('pg')
 	const pool = new Pool({
 		host: 'localhost',
 		port: 5432,
@@ -49,6 +54,10 @@ function getUserInfo(req, res, next){
 		database: 'mainDB',
 		password: 'admin',
 	})
+	if(!req.session.loggedin){
+		res.status(404).send('You must be logged in to access this page');
+		return;
+	}
 	const query = {
 		text:'SELECT ISBN,title,price,inventory FROM books WHERE inventory > 0;',
 		rowMode: 'array',
@@ -59,12 +68,14 @@ function getUserInfo(req, res, next){
 		  if (err) {
 			console.log(err.stack)
 		  } else {
-			createList(res,req,prevResult,result)
+			createList(req,res,next,prevResult,result)
 		  }
 		})
 		client.release();
 	  })
 }
+
+
 function createList(req,res,prevResult,results){
 	ISBNs=[]
 	Titles=[]
