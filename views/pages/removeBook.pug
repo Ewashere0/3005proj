@@ -1,0 +1,16 @@
+html
+    head
+        script(type='text/javascript', src="https://kit.fontawesome.com/b004a8c5d5.js", crossorigin="anonymous")
+        title Look Inna Book
+        style
+            include ../../styles/mainStyles.css
+            include ../../styles/formStyles.css
+    body(class="background")
+        include ../partials/layout
+        div(class="inputs")
+            input(type='textbox', placeholder='ISBN', id='ISBN', class='editInput')
+            br
+            button(class='confirmButton', id='remove') Remove book from collection
+
+        script
+            include ../../scripts/removeBook.js
