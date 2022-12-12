@@ -28,6 +28,7 @@ function getBooks(req, res, next){
 			createList(res,result,req)
 		  }
 		})
+		client.release();
 	  })
 }
 function createList(res,results,req){
