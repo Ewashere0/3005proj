@@ -1,4 +1,4 @@
-From 'routers\addBook-router.js'
+From 'routers\books-router.js'
 SELECT publisherid FROM publishers WHERE name = $1
 INSERT INTO publishers(name, email, address, bankAccount) values($1, $2, $3, $4)
 SELECT publisherid FROM publishers WHERE name = $1
@@ -6,6 +6,7 @@ INSERT INTO books VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
 INSERT INTO genres VALUES($1, $2)
 INSERT INTO authors VALUES($1, $2)
 INSERT INTO writes VALUES($1, $2)
+DELETE FROM books WHERE ISBN=$1
 
 From 'routers\login-router.js'
 SELECT * FROM users WHERE username = $1 AND password = $2

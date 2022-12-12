@@ -15,7 +15,7 @@ app.use("/order", require('./routers/order-router.js'));
 app.use("/registration", require('./routers/registration-router.js'));
 app.use("/login", require('./routers/login-router.js'));
 app.use("/logout", require('./routers/logout-router.js'));
-app.use("/addbook", require('./routers/addBook-router.js'));
+app.use("/books", require('./routers/books-router.js'));
 
 //lazy routers, make separate files if this gets too big idk
 app.route('/background.jpg')

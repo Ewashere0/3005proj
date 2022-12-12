@@ -1,0 +1,21 @@
+html
+    head
+        script(type='text/javascript', src="https://kit.fontawesome.com/b004a8c5d5.js", crossorigin="anonymous")
+        title Look Inna Book
+        style
+            include ../../styles/mainStyles.css
+            include ../../styles/formStyles.css
+    body(class="background")
+        include ../partials/layout
+        div(class="inputs")
+            input(type='textbox', placeholder='Full Name', id='name', class='editInput')
+            br
+            input(type='textbox', placeholder='Card Number', id='cardNum', class='editInput')
+            br
+            input(type='textbox', placeholder='Shipping Address', id='address', class='editInput')
+            br
+            button(class='confirmButton', id='addInfo') Update your information
+                
+        
+    script
+        include ../../scripts/users.js

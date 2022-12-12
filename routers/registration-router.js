@@ -42,16 +42,16 @@ function registerUser(req, res, next){
 			console.log(err.stack)
 		  } else {
 			if(result.rowCount===1){
-				res.status(404).send('This username already exists')
+				res.status(418).send('This username already exists')
 				return;
 		  	}
 			insertEntry(req,res,data)
 		  }
+		  client.release();
 		})
 	  })
 }
 
-//there's probably a way to combine these querries into one, will optimize later
 function insertEntry(req,res,data){
 	const text = 'INSERT INTO users VALUES($1, $2, $3)'
 	const values = [data.username,data.password,data.type]
@@ -75,6 +75,7 @@ function insertEntry(req,res,data){
 			res.status(201).send(data)
 
 		  }
+		  client.release();
 		})
 	  })
 }
