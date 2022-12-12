@@ -1,4 +1,5 @@
 document.getElementById('addCart').addEventListener('click', addToCart)
+document.getElementById('confirmOrder').addEventListener('click', confirmOrder)
 
 let cart=[]
 
@@ -37,4 +38,40 @@ function displayCart(){
     }
     result+='-----------------------<br>Subtotal: $'+subtotal+' <br>'
     document.getElementById("cart").innerHTML = 'Current cart: <br> '+ result;
+}
+
+function confirmOrder(){
+    cardNumber = document.getElementById('cardNumber').value
+    cardName = document.getElementById('name').value
+    address = document.getElementById('address').value
+
+    console.log(cart)
+    if(cardNumber == "" || cardName == "" || address == ""){
+        alert('Please enter complete payment information')
+        return
+    }
+
+    let data = {
+        'billingInfo' :{
+            'cardNumber' : cardNumber,
+            'cardName' : cardName,
+            'address' : address
+        },
+        'cart': cart
+    }
+
+
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if(this.readyState==4 && this.status==201){
+            alert('Order placed successfully')
+        }
+        if(this.readyState==4 && this.status==406){
+            alert('Order incomplete. Make sure Billing info is correct.')
+        }
+    };
+
+    xhttp.open("POST", "/order", true);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(JSON.stringify(data));
 }

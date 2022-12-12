@@ -18,6 +18,14 @@ html
             
             button(class='confirmButton', id='addCart') Add to Cart
                  i(class='buttonIcon fa fa-chevron-right')
+            br
+            br
+            div(class="inputs")
+                input(type='textbox', placeholder='Card Number', id='cardNumber', class='editInput')
+                input(type='textbox', placeholder='Name', id='name', class='editInput')
+                input(type='textbox', placeholder='Address', id='address', class='editInput')
+            br
+            button(class='confirmButton', id='confirmOrder') Confirm Order
 
             div#cart(class="left")
                 b Current cart

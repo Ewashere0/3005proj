@@ -2,11 +2,24 @@ const pug = require('pug')
 const express = require('express');
 let router = express.Router();
 
+const { Pool } = require('pg')
+const pool = new Pool({
+	host: 'localhost',
+	port: 5432,
+	user: 'postgres',
+	database: 'mainDB',
+	password: 'admin',
+})
 
 router
     .get('/', getBooks)
+	.post('/', express.json(), placeOrder)
 
 function getBooks(req, res, next){
+	if(!req.session.loggedin){
+        res.status(404).send('You must be logged in to access this page');
+        return;
+    }
     const { Pool } = require('pg')
 	const pool = new Pool({
 		host: 'localhost',
@@ -54,5 +67,92 @@ function createList(res,results,req){
 	res.status(200).send(data);
 }
 
+function placeOrder(req, res, next){
+	let billingInfo = req.body.billingInfo
+
+
+	const text = 'INSERT INTO billingInfo VALUES($1, $2, $3, $4)'
+    const values = [billingInfo.cardNumber, billingInfo.cardName, billingInfo.address, req.session.username]
+
+	pool.connect((err, client, done) => {
+		if (err) throw err
+		client.query(text, values, (err, res) => {
+		  if (err) {
+			if(err.detail.includes('already exists')){
+				console.log('using existing card info')
+				createOrder(req.body)
+			}
+			else{
+				res.status(406).send();
+			}
+		  } else {
+			console.log('added billing info for user ' + req.session.username)
+			createOrder(req.body)
+		  }
+		  client.release();
+		})
+	  })
+	res.status(201).send()
+}
+
+function createOrder(data){
+	let totalAmount = 0;
+	let cart = data.cart;
+	let billingInfo = data.billingInfo
+
+	cart.forEach(element => {
+		console.log(element)
+		totalAmount += parseFloat(element.price.split('$')[1])*element.amount
+	});
+
+	const text = 'INSERT INTO orders(shippingAddress, orderDate, trackingInfo, totalAmount, cardNumber)\
+				  VALUES($1, to_timestamp($2), $3, $4, $5) RETURNING orderNumber'
+    const values = [billingInfo.address, Date.now() / 1000, 'awaiting dispatch from warehouse', totalAmount, billingInfo.cardNumber]
+	pool.connect((err, client, done) => {
+		if (err) throw err
+		client.query(text, values, (err, res) => {
+		  if (err) {
+			console.log(err.stack)
+			res.status(406).send();
+		  } else {
+			data.orderNumber = res.rows[0].ordernumber;
+			console.log('Added order for ' + billingInfo.address)
+			createContains(data)
+		  }
+		  client.release();
+		})
+	  })
+}
+
+function createContains(data){
+	let cart = data.cart
+	let modifiedCard = {}
+
+	cart.forEach(element => {
+		if(element.bookId in modifiedCard){
+			modifiedCard[element.bookId] += element.amount
+		}
+		else{
+			modifiedCard[element.bookId] = element.amount
+		}
+	});
+
+	for(const key in modifiedCard){
+		const text = 'INSERT INTO contains VALUES($1, $2, $3)'
+		const values = [data.orderNumber, key, modifiedCard[key]]
+		pool.connect((err, client, done) => {
+			if (err) throw err
+			client.query(text, values, (err, res) => {
+			if (err) {
+				console.log(err.stack)
+				res.status(406).send();
+			} else {
+				console.log('Added contains for order number ' + data.orderNumber)
+			}
+			client.release();
+			})
+		})
+	}
+}
 //Export the router so it can be mounted in the main app
 module.exports = router;
