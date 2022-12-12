@@ -21,6 +21,8 @@ create table books(
      yearPublished smallint not null,
      publisher varchar (20) not null,
      pageNumber int not null,
+     price float not null,
+     inventory int not null,
      publisherSalePercentage numeric(5,2),
      publisherID bigint not null,
 
