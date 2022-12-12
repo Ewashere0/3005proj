@@ -19,3 +19,20 @@ Npm=run npm install -g npm in your terminal
 7. Upon registering we recommend putting in your billing/shipping information which you can do so from the profile page
 
 8. After doing so feel free to go to view books to start purchasing :)
+
+9. Under an owner account you can add/remove books as you please and both users and owners can observe the ordeirng page for books
+
+10. We've included in DDL.sql what is needed to build the database (this is what database-intializer.js runs ) and DML.sql has some starter inputs that you can use to get started feel free to observe how it is represented in both sql form and our database diagram (note: database-intializer.js drops any previous databases so do not run it unless you want to wipe all of the database's previous information)
+
+11. We track session data, so feel free to quit the site and relaunch it and observe that the site still remembers you, this helps make the experience smooth
+
+12. NOTE! Unfortunately we were unable to add all the cool features we wanted to hence reports are unavailable but orders are still processed within the database
+
+13. When you're done with the application press CTRL-C (or your machines equivalent) in the terminal to quit
+
+
+Quick application overview:
+
+We can login/register as either an owner or a user from there the features of users are a subset of that of an owner. Users can view the books for purchase and order them, they can add a card to their billing/shipping information and they can log out. Owners on the other hand have the ability to add and remove books of their choosing from their collection. With aspiration of the owners being able to also view reports that they would like to and a short history of all past orders made. We make sure that even when logged in users aren't able to access owner specific parts of the application as they could pose a potential security risk for the business, although there aren't any restrictions for owners has they have complete admin access.
+
+In terms of architecture there was a heavy reliance on node-postgres which served us quick well as we could essentially use many of the queries verbatim of what we learned in the course without too much extra overhead in javascript/node.js. Throughout we tried to replicate our database schema as faithfully as possible with the real application.
