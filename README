@@ -1,0 +1,9 @@
+Welcome to our COMP 3005 project! Below are instructions on how to use our application:
+
+1. We are going to assume you have the following installed: postgresql,node.js,npm. If you do not please feel free to follow the following websites:
+
+Node.js=https://nodejs.org/en/download/
+Postgresql=https://www.postgresql.org/download/
+Npm=run npm install -g npm in your terminal
+
+2. In order to 

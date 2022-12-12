@@ -54,6 +54,7 @@ function loginUser(req, res, next){
 					return;
 				}	
 			}
+			client.release();
 		})
 	})
 }

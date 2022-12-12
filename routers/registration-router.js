@@ -47,6 +47,7 @@ function registerUser(req, res, next){
 		  	}
 			insertEntry(req,res,data)
 		  }
+		  client.release();
 		})
 	  })
 }
@@ -75,6 +76,7 @@ function insertEntry(req,res,data){
 			res.status(201).send(data)
 
 		  }
+		  client.release();
 		})
 	  })
 }
