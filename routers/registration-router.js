@@ -52,7 +52,6 @@ function registerUser(req, res, next){
 	  })
 }
 
-//there's probably a way to combine these querries into one, will optimize later
 function insertEntry(req,res,data){
 	const text = 'INSERT INTO users VALUES($1, $2, $3)'
 	const values = [data.username,data.password,data.type]

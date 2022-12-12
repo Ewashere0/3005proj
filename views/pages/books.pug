@@ -21,6 +21,14 @@ html
 
             div#cart(class="left")
                 b Current cart
-        
+
+            div#info(class="right")
+                b Select your billing/shipping information
+                br
+                select#info-select
+                    ul
+                        each val,index in Names
+                            option(value=CardNums[index])= 'Name: '+val+ ', Card Number:'+CardNums[index]+ ', Address:'+Addresses[index]
+            
         script
             include ../../scripts/order.js
