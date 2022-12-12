@@ -6,4 +6,12 @@ Node.js=https://nodejs.org/en/download/
 Postgresql=https://www.postgresql.org/download/
 Npm=run npm install -g npm in your terminal
 
-2. In order to 
+2. We're first going to install all the dependancies of this application and to do so navigate to the outer most folder (which is the same level as this README) and run the following command in your terminal: npm install
+
+3. In order to use this application fully, we have an intializer that handles all of the creation for the database, run the following command: node ./database-intializer.js
+
+4. Upon completion we can start the application so we'll run it using the following command: npm start
+
+5. Once the server has started up feel free to take a look around, after awhile you'll most likely want to create account and can do so through the registration link
+
+6. From there you'll be brought to your main profile page where depending on the account you chose (User/owner) you will be greeted with a slighty different UI to reflect the different roles and capabilties
