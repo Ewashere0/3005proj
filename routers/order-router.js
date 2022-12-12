@@ -15,12 +15,6 @@ router
     .get('/', getUserInfo)
 	.post('/', express.json(), placeOrder)
 
-function getBooks(req, res, next){
-	if(!req.session.loggedin){
-        res.status(404).send('You must be logged in to access this page');
-        return;
-    }
-
 function getUserInfo(req, res, next){
 	const query = {
 		text:'SELECT address,cardNumber,name FROM billingInfo WHERE username = $1;',
@@ -40,7 +34,7 @@ function getUserInfo(req, res, next){
 	  })
 }
 
-	function getBooks(req, res, prevResult){
+function getBooks(req, res, prevResult){
     const { Pool } = require('pg')
 	const pool = new Pool({
 		host: 'localhost',
@@ -65,6 +59,7 @@ function getUserInfo(req, res, next){
 		client.release();
 	  })
 }
+
 function createList(req,res,prevResult,results){
 	ISBNs=[]
 	Titles=[]
